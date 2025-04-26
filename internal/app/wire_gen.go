@@ -15,7 +15,6 @@ import (
 	"github.com/literaen/simple_project/users/internal/grpc/handler"
 	"github.com/literaen/simple_project/users/internal/grpc/server"
 	"github.com/literaen/simple_project/users/internal/outbox"
-	"github.com/literaen/simple_project/users/internal/tasks"
 	"github.com/literaen/simple_project/users/internal/users"
 	"time"
 )
@@ -36,8 +35,7 @@ func InitApp() (*App, error) {
 	rdb := redis.NewRDB(redis_CREDS)
 	userRepository := users.NewUserRepository(gdb, rdb)
 	taskGRPCClient := grpcclients.NewTaskGRPCClient(configConfig)
-	taskService := tasks.NewTaskService(taskGRPCClient)
-	userService := users.NewUserService(userRepository, outBoxService, taskService)
+	userService := users.NewUserService(userRepository, outBoxService, taskGRPCClient)
 	userHandler := grpchandler.NewUserHandler(userService)
 	userGRPCServer := grpcserver.NewUserGRPCServer(configConfig, userHandler)
 	app := newApp(configConfig, gdb, outboxWorker, userHandler, userGRPCServer)

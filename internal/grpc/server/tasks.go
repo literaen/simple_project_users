@@ -10,8 +10,8 @@ import (
 
 	grpchandler "github.com/literaen/simple_project/users/internal/grpc/handler"
 
+	userpb "github.com/literaen/simple_project/api"
 	grpcserver "github.com/literaen/simple_project/pkg/grpc/server"
-	userpb "github.com/literaen/simple_project/proto/gen"
 )
 
 type UserGRPCServer struct {

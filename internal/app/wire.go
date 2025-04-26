@@ -14,7 +14,6 @@ import (
 	grpcserver "github.com/literaen/simple_project/users/internal/grpc/server"
 
 	"github.com/literaen/simple_project/users/internal/outbox"
-	"github.com/literaen/simple_project/users/internal/tasks"
 	"github.com/literaen/simple_project/users/internal/users"
 
 	"github.com/literaen/simple_project/pkg/postgres"
@@ -44,10 +43,10 @@ func InitApp() (*App, error) {
 		outbox.NewOutboxWorker,
 
 		grpcclient.NewTaskGRPCClient,
-		tasks.NewTaskService,
 
 		users.NewUserRepository,
 		users.NewUserService,
+
 		grpcserver.NewUserGRPCServer,
 		grpchandler.NewUserHandler,
 

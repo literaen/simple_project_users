@@ -1,23 +1,24 @@
 package users
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/literaen/simple_project/users/internal/outbox"
-	"github.com/literaen/simple_project/users/internal/tasks"
 
 	"github.com/literaen/simple_project/dto"
+	grpcclient "github.com/literaen/simple_project/users/internal/grpc/client"
 	"gorm.io/gorm"
 )
 
 type UserService struct {
-	repo          UserRepository
-	outboxService *outbox.OutBoxService
-	taskClient    *tasks.TaskService
+	repo           UserRepository
+	outboxService  *outbox.OutBoxService
+	taskGRPCClient *grpcclient.TaskGRPCClient
 }
 
-func NewUserService(repo UserRepository, outboxService *outbox.OutBoxService, taskClient *tasks.TaskService) *UserService {
-	return &UserService{repo: repo, outboxService: outboxService, taskClient: taskClient}
+func NewUserService(repo UserRepository, outboxService *outbox.OutBoxService, taskGRPCClient *grpcclient.TaskGRPCClient) *UserService {
+	return &UserService{repo: repo, outboxService: outboxService, taskGRPCClient: taskGRPCClient}
 }
 
 func (s *UserService) GetAllUsers() ([]User, error) {
@@ -30,7 +31,7 @@ func (s *UserService) GetUserByID(id uint64) (*dto.UserWithTasks, error) {
 		return nil, err
 	}
 
-	tasksResp, err := s.taskClient.GetUserAllTasks(id)
+	tasksResp, err := s.taskGRPCClient.GetUserAllTasks(context.TODO(), id)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch users tasks: %v", err)
 	}

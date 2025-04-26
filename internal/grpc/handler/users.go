@@ -5,8 +5,8 @@ import (
 
 	"github.com/literaen/simple_project/users/internal/users"
 
-	taskpb "github.com/literaen/simple_project/proto/gen"
-	userpb "github.com/literaen/simple_project/proto/gen"
+	taskpb "github.com/literaen/simple_project/api"
+	userpb "github.com/literaen/simple_project/api"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

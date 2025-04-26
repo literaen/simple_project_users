@@ -6,7 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
-	github.com/literaen/simple_project v0.0.7
+	github.com/literaen/simple_project v0.0.8
 	google.golang.org/grpc v1.71.1
 )
 

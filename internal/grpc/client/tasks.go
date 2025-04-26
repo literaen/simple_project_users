@@ -10,7 +10,7 @@ import (
 
 	grpcclient "github.com/literaen/simple_project/pkg/grpc/client"
 
-	taskpb "github.com/literaen/simple_project/proto/gen"
+	taskpb "github.com/literaen/simple_project/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
